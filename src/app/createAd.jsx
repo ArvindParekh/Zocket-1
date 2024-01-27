@@ -1,15 +1,24 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Input from "../components/Input";
 import { useState } from "react";
 import { PopoverPicker } from "../components/popoverPicker";
 import data from "../data/data.js"
+import Canvas from "../utils/canvas";
+
 
 const InputComponent = () => {
+  
   const inputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [color, setColor] = useState("#aabbcc");
-  const [adContent, setAdContent] = useState(null);
-  const [cta, setCta] = useState(null);
+  const [adContent, setAdContent] = useState("1 & 2 BHK Luxury Apartments at just Rs.34.97Lakhs");
+  const [cta, setCta] = useState("ShopNow");
+
+  useEffect(() => {
+    const canvas = document.getElementById("canvas-element");
+    const ctx = canvas.getContext("2d");
+    const CanvasInstance = new Canvas(ctx, color, adContent, cta, null, data);
+  }, [selectedFile, color, adContent, cta]);
 
   function handleClick() {
     inputRef.current.click();
@@ -56,12 +65,12 @@ const InputComponent = () => {
 
       <section className="flex flex-col justify-evenly my-16 mx-16 border">
         <Input
-          value="arvind"
+          value={adContent}
           placeholderText="Ad content"
           onChange={() => handleContentChange}
         />
         <Input
-          value="another"
+          value={cta}
           placeholderText="CTA"
           onChange={() => handleCtaChange}
         />
