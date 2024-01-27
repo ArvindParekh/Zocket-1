@@ -17,7 +17,8 @@ const InputComponent = () => {
   useEffect(() => {
     const canvas = document.getElementById("canvas-element");
     const ctx = canvas.getContext("2d");
-    const CanvasInstance = new Canvas(ctx, color, adContent, cta, null, data);
+    const CanvasInstance = new Canvas(ctx, color, adContent, cta, selectedFile, data);
+    
   }, [selectedFile, color, adContent, cta]);
 
   function handleClick() {
@@ -25,8 +26,20 @@ const InputComponent = () => {
   }
 
   function handleChange(event) {
+    event.preventDefault();
     const file = event.target.files[0];
-    setSelectedFile(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = () => {
+          setSelectedFile(image);
+          // canvas.updateImage(image);
+        };
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   function handleContentChange(event) {

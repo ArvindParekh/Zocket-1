@@ -9,7 +9,7 @@ const CanvasComponent = () => {
         id="canvas-element"
         height="1080px"
         width="1080px"
-        className="w-[50%] h-[50%] bg-white "
+        className="w-[90%] h-[90%] bg-white "
       >
         Ad content here
       </canvas>
