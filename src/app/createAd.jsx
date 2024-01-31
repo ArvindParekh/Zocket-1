@@ -13,6 +13,7 @@ const InputComponent = () => {
   const [color, setColor] = useState("#aabbcc");
   const [adContent, setAdContent] = useState("1 & 2 BHK Luxury Apartments at just Rs.34.97Lakhs");
   const [cta, setCta] = useState("ShopNow");
+  const [colorArr, setColorArr] = useState([]);
 
   useEffect(() => {
     const canvas = document.getElementById("canvas-element");
@@ -52,9 +53,14 @@ const InputComponent = () => {
     console.log(cta);
   }
 
+  function handleColorChange(color){
+    setColor(color)
+    setColorArr((prev)=>[...prev, color]);
+  }
+
   return (
-    <aside className="w-[50%] h-[100%] border">
-      <section className="flex flex-col justify-evenly my-16 mx-16 border">
+    <aside className="w-[50%] h-[100%]">
+      <section className="flex flex-col justify-evenly my-16 mx-16">
         <div className="text-center m-5">
           <h1 className="font-bold text-4xl">Ad Customization</h1>
           <p className="font-medium text-lg text-gray-500">
@@ -76,7 +82,7 @@ const InputComponent = () => {
 
       <hr defaultValue="hello" />
 
-      <section className="flex flex-col justify-evenly my-16 mx-16 border">
+      <section className="flex flex-col justify-evenly my-16 mx-16">
         <Input
           value={adContent}
           placeholderText="Ad content"
@@ -92,9 +98,13 @@ const InputComponent = () => {
         {/* <p>Here will be the color picker</p> */}
         <PopoverPicker
           color={color}
-          onChange={setColor}
+          onChange={handleColorChange}
           className="picker m-2"
         />
+        {/* {colorArr.map((color, index)=>{
+          console.log(colorArr);
+          return <button key={index} className={`rounded-full w-10 h-10 bg-[${color}]`}>1</button>
+        })} */}
       </section>
     </aside>
   );
